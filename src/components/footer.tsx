@@ -53,16 +53,24 @@ export function Footer() {
           </ul>
           <div className="flex w-fit justify-center gap-2">
             <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-twitter text-lg" />
+            <a href="https://x.com/bpskabsidoarjo">
+            <i className="fa-brands fa-x-twitter text-lg"></i>
+            </a>
             </IconButton>
             <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-youtube text-lg" />
+              <a href="www.youtube.com/@bpskabupatensidoarjo3550">
+                <i  className="fa-brands fa-youtube text-lg"/>
+              </a>
             </IconButton>
             <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-instagram text-lg" />
+              <a href="https://instagram.com/bps.sidoarjo">
+                <i className="fa-brands fa-instagram text-lg" />
+              </a>
             </IconButton>
             <IconButton size="sm" color="gray" variant="text">
-              <i className="fa-brands fa-github text-lg" />
+              <a href="https://id-id.facebook.com/statistik.sidoarjo/">
+                <i className="fa-brands fa-facebook text-lg" />
+              </a>
             </IconButton>
           </div>
         </div>

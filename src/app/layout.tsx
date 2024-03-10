@@ -10,9 +10,9 @@ import { Layout, FixedPlugin } from "@/components";
 // });
 
 export const metadata: Metadata = {
-  title: "NextJS Tailwind Event Landing Page",
+  title: "Buku Tamu | BPS Sidoarjo",
   description:
-    "Introducing Tailwind Event Landing Page, a dynamic and visually appealing landing page template designed using Tailwind CSS and Material Tailwind.",
+    "Buku tamu kunjungan website BPS Sidoarjo guna pendataan hasil kunjungan.",
 };
 
 export default function RootLayout({

@@ -38,19 +38,19 @@ function NavItem({ children, href }: NavItemProps) {
 
 const NAV_MENU = [
   {
-    name: "Publikasi",
+    name: "Daftar Buku",
     icon: RectangleStackIcon,
     href: "https://sidoarjokab.bps.go.id/publication.html"
   },
   {
-    name: "Berita",
-    icon: UserCircleIcon,
-    href: "https://sidoarjokab.bps.go.id/news.html"
+    name: "Official Website",
+    icon: CommandLineIcon,
+    href: "https://sidoarjokab.bps.go.id/",
   },
   {
-    name: "Data Sensus",
-    icon: CommandLineIcon,
-    href: "https://sensus.bps.go.id/",
+    name: "Kontak Kami",
+    icon: UserCircleIcon,
+    href: "https://sidoarjokab.bps.go.id/news.html"
   },
 ];
 
