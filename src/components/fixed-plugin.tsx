@@ -25,7 +25,7 @@ export function FixedPlugin() {
           alt="Whatsapp icon"
           src="/image/ic-whatsapp.png"
         />{" "}
-        Hubungi admin BPS
+        Kontak kami
       </Button>
   );
 }
