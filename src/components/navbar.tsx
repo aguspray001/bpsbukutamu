@@ -14,6 +14,7 @@ import {
   XMarkIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
 interface NavItemProps {
   children: React.ReactNode;
@@ -43,14 +44,14 @@ const NAV_MENU = [
     href: "https://sidoarjokab.bps.go.id/publication.html"
   },
   {
-    name: "Official Website",
-    icon: CommandLineIcon,
+    name: "Produk BPS",
+    icon: Squares2X2Icon,
     href: "https://sidoarjokab.bps.go.id/",
   },
   {
-    name: "Kontak Kami",
-    icon: UserCircleIcon,
-    href: "https://sidoarjokab.bps.go.id/news.html"
+    name: "Official Website",
+    icon: CommandLineIcon,
+    href: "https://ppid.bps.go.id/app/konten/3515/Profil-BPS.html"
   },
 ];
 
@@ -90,12 +91,15 @@ export function Navbar() {
       className="fixed top-0 z-50 border-0"
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Typography
-          color={isScrolling ? "blue-gray" : "white"}
-          className="text-lg font-bold"
-        >
-          Badan Pusat Statistik Sidoarjo
-        </Typography>
+        <div className="flex flex-row items-center justify-between">
+          <Image src={"/logos/logo-bps.png"} width={70} height={70} alt="logo-bps" />
+          <Typography
+            color={isScrolling ? "blue-gray" : "white"}
+            className="text-lg font-bold px-4"
+          >
+            Badan Pusat Statistik Sidoarjo
+          </Typography>
+        </div>
         <ul
           className={`ml-10 hidden items-center gap-6 lg:flex ${
             isScrolling ? "text-gray-900" : "text-white"

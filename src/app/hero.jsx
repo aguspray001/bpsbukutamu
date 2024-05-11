@@ -65,7 +65,7 @@ function Hero() {
 
   useEffect(() => {
     const intervalID = setInterval(() => {
-      if (bgCount >= 3 || bgCount === 0) {
+      if (bgCount >= 2 || bgCount === 0) {
         setBGCount(0);
       }
       setBGCount((prevBGCount) => prevBGCount + 1);
@@ -137,23 +137,40 @@ function Hero() {
   };
 
   return (
-    <div className={`relative min-h-screen w-full bg-cover bg-no-repeat`} style={{
-      backgroundImage: `url('/image/sidoarjo-bg-${bgCount}.jpg')`,
-      width: '100%',
-      height: '100%',
-    }}>
+    <div
+      className={`relative min-h-screen w-full bg-cover bg-no-repeat object-cover`}
+      style={{
+        backgroundImage: `url('/image/sidoarjo-bg-${bgCount}.jpg')`,
+      }}
+    >
       <div className="absolute inset-0 h-full w-full bg-gray-900/60" />
       <div className="grid min-h-screen px-8">
         <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
-          <Typography variant="h3" color="white" className="mb-2">
-            Pelayanan Statistik Terpadu
-          </Typography>
-          <Typography variant="h3" color="white" className="lg:max-w-3xl">
-            Selamat Datang
-          </Typography>
-          <Typography variant="h1" color="white" className="lg:max-w-3xl">
-            E-Library BPS Kabupaten Sidoarjo
-          </Typography>
+          {
+            bgCount == 1?
+            <>
+              <Typography variant="h3" color="white" className="mb-2">
+                Pelayanan Statistik Terpadu
+              </Typography>
+              <Typography variant="h3" color="white" className="lg:max-w-3xl">
+                Selamat Datang di
+              </Typography>
+              <Typography variant="h1" color="white" className="lg:max-w-3xl">
+                E-Library
+              </Typography>
+              <Typography variant="h2" color="white" className="lg:max-w-3xl">
+                Badan Pusat Statistik Kabupaten Sidoarjo
+              </Typography>
+            </>:
+            <>
+            <Typography variant="h3" color="white" className="mb-2">
+              Pelayanan Data Statistik
+            </Typography>
+            <Typography variant="h2" color="white" className="lg:max-w-3xl">
+              Badan Pusat Statistik Kabupaten Sidoarjo
+            </Typography>
+          </>
+          }
           <div className="flex items-center gap-4 mt-10">
             <Button
               size="lg"
