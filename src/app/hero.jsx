@@ -146,8 +146,7 @@ function Hero() {
       <div className="absolute inset-0 h-full w-full bg-gray-900/60" />
       <div className="grid min-h-screen px-8">
         <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
-          {
-            bgCount == 1?
+          {bgCount == 1 ? (
             <>
               <Typography variant="h3" color="white" className="mb-2">
                 Pelayanan Statistik Terpadu
@@ -161,16 +160,17 @@ function Hero() {
               <Typography variant="h2" color="white" className="lg:max-w-3xl">
                 Badan Pusat Statistik Kabupaten Sidoarjo
               </Typography>
-            </>:
+            </>
+          ) : (
             <>
-            <Typography variant="h3" color="white" className="mb-2">
-              Pelayanan Data Statistik
-            </Typography>
-            <Typography variant="h2" color="white" className="lg:max-w-3xl">
-              Badan Pusat Statistik Kabupaten Sidoarjo
-            </Typography>
-          </>
-          }
+              <Typography variant="h3" color="white" className="mb-2">
+                Pelayanan Data Statistik
+              </Typography>
+              <Typography variant="h2" color="white" className="lg:max-w-3xl">
+                Badan Pusat Statistik Kabupaten Sidoarjo
+              </Typography>
+            </>
+          )}
           <div className="flex items-center gap-4 mt-10">
             <Button
               size="lg"
@@ -182,24 +182,13 @@ function Hero() {
             </Button>
             <Dialog open={open} handler={handleOpen}>
               <form name={formName}>
-                <DialogHeader>Buku Tamu - Isi Data Diri .</DialogHeader>
+                <DialogHeader>Buku Tamu</DialogHeader>
                 <DialogBody className="w-full h-[300px] overflow-x-hidden overflow-y-auto">
                   <input
                     name="timestamp"
                     value={new Date()}
                     hidden={true}
                   ></input>
-                  <Typography className="mb-2 mt-2" variant="h6">
-                    Nama
-                  </Typography>
-                  <Input
-                    label="Nama Lengkap "
-                    size="md"
-                    crossOrigin={undefined}
-                    name="nama"
-                    value={dataPengunjung.nama}
-                    onChange={handleInputChange}
-                  />
                   <Typography className="mb-2 mt-2" variant="h6">
                     Email
                   </Typography>
@@ -212,10 +201,50 @@ function Hero() {
                     onChange={handleInputChange}
                   />
                   <Typography className="mb-2 mt-2" variant="h6">
-                    Nomor Whatsapp
+                    Tujuan Kunjungan
+                  </Typography>
+                  <Select
+                    label="Tujuan Kunjungan"
+                    name="tujuan"
+                    value={dataPengunjung.pekerjaan}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "pekerjaan", value: e },
+                      })
+                    }
+                  >
+                    <Option value="Pelayanan Statistik Terpadu (PST)">
+                      Pelayanan Statistik Terpadu (PST)
+                    </Option>
+                    <Option value="Kunjungan Dinas">Kunjungan Dinas</Option>
+                    <Option value="Lainnya">Lainnya</Option>
+                  </Select>
+                  {dataPengunjung.pekerjaan === "Lainnya" && (
+                    <div className="mt-2">
+                      <Input
+                        label="Isi Tujuan Kunjungan Anda (Jika memilih opsi lainnya)"
+                        size="md"
+                        crossOrigin={undefined}
+                        name="other_identity"
+                      />
+                    </div>
+                  )}
+                  <Typography className="mb-2 mt-2" variant="h6">
+                    Nama Lengkap Pengunjung
                   </Typography>
                   <Input
-                    label="Nomor Whatsapp "
+                    label="Nama Lengkap "
+                    size="md"
+                    crossOrigin={undefined}
+                    name="nama"
+                    value={dataPengunjung.nama}
+                    onChange={handleInputChange}
+                  />
+                  <Typography className="mb-2 mt-2" variant="h6">
+                    Nomor Telpon Pengunjung
+                  </Typography>
+                  <Input
+                    label="Nomor Telpon Pengunjung"
                     size="md"
                     crossOrigin={undefined}
                     name="nomor_telp"
@@ -223,6 +252,46 @@ function Hero() {
                     onChange={handleInputChange}
                   />
                   <Typography className="mb-2 mt-2" variant="h6">
+                    Jenis Identitas Pengunjung
+                  </Typography>
+                  <Select
+                    label="Pilih Jenis Identitas Pengunjung"
+                    name="jenis_kelamin"
+                    value={dataPengunjung.jenis_kelamin}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "jenis_kelamin", value: e },
+                      })
+                    }
+                  >
+                    <Option value="NIK">NIK</Option>
+                    <Option value="NIP">NIP</Option>
+                    <Option value="Kartu Pelajar">Kartu Pelajar</Option>
+                    <Option value="Lainnya">Lainnya</Option>
+                  </Select>
+                  {dataPengunjung.jenis_kelamin === "Lainnya" && (
+                    <div className="mt-2">
+                      <Input
+                        label="Isi Jenis Identitas Anda (Jika memilih opsi lainnya)"
+                        size="md"
+                        crossOrigin={undefined}
+                        name="other_identity"
+                      />
+                    </div>
+                  )}
+
+                  <Typography className="mb-2 mt-2" variant="h6">
+                    Nomor Identitas Pengunjung
+                  </Typography>
+                  <Input
+                    label="Nomor Identitas Pengunjung"
+                    size="md"
+                    crossOrigin={undefined}
+                    name="instansi"
+                    value={dataPengunjung.instansi}
+                    onChange={handleInputChange}
+                  />
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
                     Jenis Kelamin
                   </Typography>
                   <Select
@@ -237,8 +306,8 @@ function Hero() {
                   >
                     <Option value="laki-laki">Laki-Laki</Option>
                     <Option value="perempuan">Perempuan</Option>
-                  </Select>
-                  <Typography className="mb-2 mt-2" variant="h6">
+                  </Select> */}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
                     Pendidikan Tertinggi
                   </Typography>
                   <Select
@@ -257,8 +326,8 @@ function Hero() {
                     <Option value="D4/S1">D4 / S1</Option>
                     <Option value="S2">S2</Option>
                     <Option value="S3">S3</Option>
-                  </Select>
-                  <Typography className="mb-2 mt-2" variant="h6">
+                  </Select> */}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
                     Pekerjaan Utama
                   </Typography>
                   <Select
@@ -277,12 +346,12 @@ function Hero() {
                     <Option value="Pegawai BUMN/BUMD">Pegawai BUMN/BUMD</Option>
                     <Option value="Swasta">Swasta</Option>
                     <Option value="Lainnya">Lainnya</Option>
-                  </Select>
+                  </Select> */}
                   <Typography className="mb-2 mt-2" variant="h6">
-                    Nama Instansi
+                    Asal Instansi/Perusahaan/Lembaga Pengunjung
                   </Typography>
                   <Input
-                    label="Instansi  (Bila ada)"
+                    label="Asal Instansi/Perusahaan/Lembaga Pengunjung"
                     size="md"
                     crossOrigin={undefined}
                     name="instansi"
@@ -290,9 +359,40 @@ function Hero() {
                     onChange={handleInputChange}
                   />
                   <Typography className="mb-2 mt-2" variant="h6">
-                    Kategori Instansi/Lembaga
+                    Petugas Pelayanan
                   </Typography>
                   <Select
+                    label="Pilih Petugas Pelayanan"
+                    name="pendidikan"
+                    value={dataPengunjung.pendidikan}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "pendidikan", value: e },
+                      })
+                    }
+                  >
+                    <Option value="Chandra Sugiarso Lasambouw">Chandra Sugiarso Lasambouw</Option>
+                    <Option value="Syaiful Anwar">Syaiful Anwar</Option>
+                    <Option value="Hanifah Busainah">Hanifah Busainah</Option>
+                    <Option value="Ika Dessyta Prihandani">Ika Dessyta Prihandani</Option>
+                    <Option value="Robby Susiono">Robby Susiono</Option>
+                    <Option value="Lainnya">Lainnya</Option>
+                  </Select>
+
+                  {dataPengunjung.pendidikan === "Lainnya" && (
+                    <div className="mt-2">
+                      <Input
+                        label="Isi Petugas Pelayanan (Jika memilih opsi lainnya)"
+                        size="md"
+                        crossOrigin={undefined}
+                        name="other_identity"
+                      />
+                    </div>
+                  )}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
+                    Kategori Instansi/Lembaga
+                  </Typography> */}
+                  {/* <Select
                     label="Pilih Kategori Instansi/Lembaga"
                     name="kategori_instansi"
                     value={dataPengunjung.kategori_instansi}
@@ -319,8 +419,8 @@ function Hero() {
                     <Option value="BUMN/BUMD">BUMN/BUMD</Option>
                     <Option value="Swasta">Swasta</Option>
                     <Option value="Lainnya">Lainnya</Option>
-                  </Select>
-                  <Typography className="mb-2 mt-2" variant="h6">
+                  </Select> */}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
                     Pemanfaatan Utama Hasil Kunjungan Web
                   </Typography>
                   <Select
@@ -340,7 +440,7 @@ function Hero() {
                     <Option value="Komersial">Komersial</Option>
                     <Option value="Penelitian">Penelitian</Option>
                     <Option value="Lainnya">Lainnya</Option>
-                  </Select>
+                  </Select> */}
                   <div className="-ml-2.5 mt-3">
                     <Checkbox
                       label="Apakah data anda sudah benar?"
