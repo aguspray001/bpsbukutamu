@@ -23,11 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
+        {/* <l
           defer
           data-site="YOUR_DOMAIN_HERE"
           src="https://api.nepcha.com/js/nepcha-analytics.js"
-        ></script>
+        ></script> */}
         <link rel="shortcut icon" href="/logos/logo-bps.png" type="image/png" />
       </head>
       {/* <body className={roboto.className}> */}
@@ -51,6 +51,14 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"
         />
+      <script
+        type="module"
+        src="node_modules/@material-tailwind/html@latest/scripts/popover.js"
+      ></script>
+      <script
+        type="module"
+        src="https://unpkg.com/@material-tailwind/html@latest/scripts/popover.js"
+      ></script>
       </body>
     </html>
   );

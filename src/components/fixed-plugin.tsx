@@ -6,7 +6,7 @@ import WhatsappIcon from "../../public/image/ic-whatsapp.png";
 export function FixedPlugin() {
   const sendMessage = () => {
     window.open(
-      `https://api.whatsapp.com/send?phone=+628113667371&text=Permisi admin *BPS Sidoarjo* yang cantik, saya ada pertanyaan...`,
+      `https://api.whatsapp.com/send?phone=+6285890003515&text=Permisi *BPS Sidoarjo* saya ada pertanyaan`,
       "_blank"
     );
   };

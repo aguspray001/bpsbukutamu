@@ -61,7 +61,7 @@ export function Footer() {
   });
 
   return (
-    <footer className="pb-5 p-10 md:pt-10 mb-10">
+    <footer className="pb-5 p-10 md:pt-10 bg-[#001F4F] h-52">
       <div className="container flex flex-col mx-auto">
         <div className="flex flex-col md:flex-row items-center !justify-between">
           <div className="flex md:flex-row items-center justify-between gap-2">
@@ -72,28 +72,28 @@ export function Footer() {
               height={100}
             />
             <div className="flex flex-col justify-start">
-              <Typography variant="small" className="text-gray-900">
+              <Typography variant="small" className="text-white">
                 Badan Pusat Statistik Sidoarjo
               </Typography>
-              <Typography variant="small" className="text-gray-900">
+              <Typography variant="small" className="text-white">
                 Jl. Pahlawan No. 140 - Sidoarjo
               </Typography>
-              <Typography variant="small" className="text-gray-900">
+              <Typography variant="small" className="text-white">
                 Telp: (031) 8941744
               </Typography>
-              <Typography variant="small" className="text-gray-900">
+              <Typography variant="small" className="text-white">
                 Email: bps3515@bps.go.id
               </Typography>
             </div>
           </div>
           <ul className="flex flex-col justify-center my-4 md:my-0 w-max mx-auto items-center gap-4">
             {LINKS.map((link, index) => (
-              <li key={index}>
+              <li key={index} className="cursor-pointer">
                 <Typography
                   variant="small"
                   color="white"
                   onClick={()=>handleOpen(link)}
-                  className="font-normal !text-gray-700 hover:!text-gray-900 transition-colors"
+                  className="font-normal !text-white hover:shadow-md transition-colors"
                 >
                   {link}
                 </Typography>
@@ -166,31 +166,32 @@ export function Footer() {
             ))}
           </ul>
           <div className="flex flex-col justify-center items-center">
-            <Typography>Media Sosial:</Typography>
+            <Typography className="text-white">Media Sosial:</Typography>
             <div className="flex w-fit justify-center gap-2">
               <IconButton size="sm" color="gray" variant="text">
                 <a href="https://x.com/bpskabsidoarjo">
-                  <Image
+                  <i className="fa-brands fa-twitter text-lg text-white hover:shadow-lg hover:shadow-yellow-100" />
+                  {/* <Image
                     src={"/logos/logo-twitter.png"}
                     alt="twitter logo"
                     width={40}
                     height={40}
-                  />
+                  /> */}
                 </a>
               </IconButton>
               <IconButton size="sm" color="gray" variant="text">
                 <a href="www.youtube.com/@bpskabupatensidoarjo3550">
-                  <i className="fa-brands fa-youtube text-lg" />
+                  <i className="fa-brands fa-youtube text-lg text-white hover:shadow-lg hover:shadow-yellow-100" />
                 </a>
               </IconButton>
               <IconButton size="sm" color="gray" variant="text">
                 <a href="https://instagram.com/bps.sidoarjo">
-                  <i className="fa-brands fa-instagram text-lg" />
+                  <i className="fa-brands fa-instagram text-lg text-white hover:shadow-lg hover:shadow-yellow-100" />
                 </a>
               </IconButton>
               <IconButton size="sm" color="gray" variant="text">
                 <a href="https://id-id.facebook.com/statistik.sidoarjo/">
-                  <i className="fa-brands fa-facebook text-lg" />
+                  <i className="fa-brands fa-facebook text-lg text-white hover:shadow-lg hover:shadow-yellow-100" />
                 </a>
               </IconButton>
             </div>
