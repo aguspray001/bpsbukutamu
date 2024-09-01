@@ -81,12 +81,14 @@ const NAV_MENU = [
         href: "https://sidoarjokab.bps.go.id",
         name: "Official Website"
       },
-      { title: "BPS Provinsi Jawa Timur", href: "https://jatim.bps.go.id",
+      {
+        title: "BPS Provinsi Jawa Timur", href: "https://jatim.bps.go.id",
         name: "Official Website"
-       },
-      { title: "BPS Republik Indonesia", href: "https://bps.go.id",
+      },
+      {
+        title: "BPS Republik Indonesia", href: "https://bps.go.id",
         name: "Official Website"
-       },
+      },
     ],
   },
 ];
@@ -140,18 +142,16 @@ export function Navbar() {
           />
         </div>
         <ul
-          className={`ml-10 hidden items-center gap-6 lg:flex ${
-            isScrolling ? "text-gray-900" : "text-white"
-          }`}
+          className={`ml-10 hidden items-center gap-6 lg:flex ${isScrolling ? "text-gray-900" : "text-white"
+            }`}
         >
-          {NAV_MENU.map(({ name, icon: Icon, href, menu }) => (
-            <div className="relative">
+          {NAV_MENU.map(({ name, icon: Icon, href, menu }, k) => (
+            <div className="relative" key={k}>
               <Popover placement="bottom">
                 <PopoverHandler>
                   <Button
-                    className={`bg-transparent p-0 m-0 shadow-none ${
-                      isScrolling ? "text-white" : "text-white"
-                    } hover:shadow-none`}
+                    className={`bg-transparent p-0 m-0 shadow-none ${isScrolling ? "text-white" : "text-white"
+                      } hover:shadow-none`}
                   >
                     <NavItem
                       data-ripple-light="true"
@@ -169,6 +169,7 @@ export function Navbar() {
                     <ul>
                       {menu?.map((m, k) => (
                         <li
+                          key={k}
                           role="menuitem"
                           className="block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
                         >
@@ -207,9 +208,8 @@ export function Navbar() {
             {NAV_MENU.map(({ name, icon: Icon, href, menu }) => (
               <div className="relative">
                 <Button
-                  className={`bg-transparent p-0 m-0 shadow-none ${
-                    isScrolling ? "text-white" : "text-white"
-                  } hover:shadow-none`}
+                  className={`bg-transparent p-0 m-0 shadow-none ${isScrolling ? "text-white" : "text-white"
+                    } hover:shadow-none`}
                   onClick={() =>
                     setOpenDropdown({ state: !openDropdown.state, menu: name })
                   }

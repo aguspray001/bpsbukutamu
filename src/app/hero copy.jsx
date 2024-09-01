@@ -14,45 +14,36 @@ import {
 } from "@material-tailwind/react";
 import React, { useEffect } from "react";
 import Swal from "sweetalert2";
-import { scriptURLBPS } from "../constant/index.js";
 
 function Hero() {
   const [open, setOpen] = React.useState(false);
   const [bgCount, setBGCount] = React.useState(0);
   const [dataPengunjung, setDataPengunjung] = React.useState({
     timestamp: new Date(),
+    nama: "",
     email: "",
-    tujuan_kunjungan: "",
-    tujuan_kunjungan_lainnya: "",
-    nama_lengkap: "",
-    jenis_kelamin: "",
     nomor_telp: "",
-    jenis_identitas: "",
-    jenis_identitas_lainnya: "",
-    nomor_identitas: "",
+    jenis_kelamin: "",
+    pendidikan: "",
+    pekerjaan: "",
     instansi: "",
-    petugas_pelayanan: "",
-    petugas_pelayanan_lainnya: "",
-    catatan_pengunjung: "",
+    kategori_instansi: "",
+    hasil_kunjungan: "",
     valid: false,
   });
 
   const resetDataPengunjung = () => {
     setDataPengunjung({
       timestamp: new Date(),
+      nama: "",
       email: "",
-      tujuan_kunjungan: "",
-      tujuan_kunjungan_lainnya: "",
-      nama_lengkap: "",
-      jenis_kelamin: "",
       nomor_telp: "",
-      jenis_identitas: "",
-      jenis_identitas_lainnya: "",
-      nomor_identitas: "",
+      jenis_kelamin: "",
+      pendidikan: "",
+      pekerjaan: "",
       instansi: "",
-      petugas_pelayanan: "",
-      petugas_pelayanan_lainnya: "",
-      catatan_pengunjung: "",
+      kategori_instansi: "",
+      hasil_kunjungan: "",
       valid: false,
     });
   };
@@ -83,20 +74,8 @@ function Hero() {
   }, [bgCount]);
 
   const saveData = async (e, dataPengunjung) => {
-    console.log(dataPengunjung);
+    setOpen(!open);
 
-    // agar tidak masuk null, padahal sudah isi nilai
-    if (dataPengunjung.jenis_identitas !== "Lainnya") {
-      dataPengunjung.jenis_identitas_lainnya = dataPengunjung.jenis_identitas;
-    }
-    if (dataPengunjung.petugas_pelayanan !== "Lainnya") {
-      dataPengunjung.petugas_pelayanan_lainnya =
-        dataPengunjung.petugas_pelayanan;
-    }
-    if (dataPengunjung.tujuan_kunjungan !== "Lainnya") {
-      dataPengunjung.tujuan_kunjungan_lainnya = dataPengunjung.tujuan_kunjungan;
-    }
-    console.log(dataPengunjung);
     // check null value in data pengunjung
     const nullDataPengunjung = [];
     for (const key in dataPengunjung) {
@@ -125,54 +104,23 @@ function Hero() {
         });
       } else {
         // send data to google sheet and pop out the sukses modal!
-        submitToGoogleSheet(dataPengunjung)
-          .then((res) => {
-            setOpen(!open);
-          })
-          .catch((err) => {
-            Swal.fire({
-              title: "Gagal",
-              text: err,
-              icon: "error",
-            });
-          });
+        submitToGoogleSheet(dataPengunjung);
       }
     }
   };
 
   const submitToGoogleSheet = async (dataPengunjung) => {
-    const scriptURL = scriptURLBPS;
+    console.log(dataPengunjung);
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbzzI14zi_lUftXyfWuUUhBEUJ_FutMnhBPmhztxkLbttdZh6TLP1Ev_JxA3QBwDz9Phsw/exec";
     const form = document.forms[formName];
     let formData = new FormData(form);
-    formData.append("timestamp", dataPengunjung.timestamp);
-    formData.append("email", dataPengunjung.email);
-    formData.append(
-      "tujuan_kunjungan",
-      dataPengunjung.tujuan_kunjungan === "Lainnya"
-        ? dataPengunjung.tujuan_kunjungan_lainnya
-        : dataPengunjung.tujuan_kunjungan
-    );
-    formData.append("nama_lengkap", dataPengunjung.nama_lengkap);
     formData.append("jenis_kelamin", dataPengunjung.jenis_kelamin);
-    formData.append("nomor_telp", dataPengunjung.nomor_telp.toString());
-    formData.append(
-      "jenis_identitas",
-      dataPengunjung.jenis_identitas === "Lainnya"
-        ? dataPengunjung.jenis_identitas_lainnya
-        : dataPengunjung.jenis_identitas
-    );
-    formData.append(
-      "nomor_identitas",
-      dataPengunjung.nomor_identitas.toString()
-    );
+    formData.append("pendidikan", dataPengunjung.pendidikan);
+    formData.append("pekerjaan", dataPengunjung.pekerjaan);
     formData.append("instansi", dataPengunjung.instansi);
-    formData.append(
-      "petugas_pelayanan",
-      dataPengunjung.petugas_pelayanan === "Lainnya"
-        ? dataPengunjung.petugas_pelayanan_lainnya
-        : dataPengunjung.petugas_pelayanan
-    );
-    formData.append("catatan_pengunjung", dataPengunjung.catatan_pengunjung);
+    formData.append("kategori_instansi", dataPengunjung.kategori_instansi);
+    formData.append("hasil_kunjungan", dataPengunjung.hasil_kunjungan);
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -257,11 +205,11 @@ function Hero() {
                   </Typography>
                   <Select
                     label="Tujuan Kunjungan"
-                    name="tujuan_kunjungan"
-                    value={dataPengunjung.tujuan_kunjungan}
+                    name="tujuan"
+                    value={dataPengunjung.pekerjaan}
                     onChange={(e) =>
                       handleInputChange({
-                        target: { name: "tujuan_kunjungan", value: e },
+                        target: { name: "pekerjaan", value: e },
                       })
                     }
                   >
@@ -271,15 +219,13 @@ function Hero() {
                     <Option value="Kunjungan Dinas">Kunjungan Dinas</Option>
                     <Option value="Lainnya">Lainnya</Option>
                   </Select>
-                  {dataPengunjung.tujuan_kunjungan === "Lainnya" && (
+                  {dataPengunjung.pekerjaan === "Lainnya" && (
                     <div className="mt-2">
                       <Input
                         label="Isi Tujuan Kunjungan Anda (Jika memilih opsi lainnya)"
                         size="md"
                         crossOrigin={undefined}
-                        name="tujuan_kunjungan_lainnya"
-                        value={dataPengunjung.tujuan_kunjungan_lainnya}
-                        onChange={handleInputChange}
+                        name="other_identity"
                       />
                     </div>
                   )}
@@ -290,8 +236,8 @@ function Hero() {
                     label="Nama Lengkap "
                     size="md"
                     crossOrigin={undefined}
-                    name="nama_lengkap"
-                    value={dataPengunjung.nama_lengkap}
+                    name="nama"
+                    value={dataPengunjung.nama}
                     onChange={handleInputChange}
                   />
                   <Typography className="mb-2 mt-2" variant="h6">
@@ -326,11 +272,11 @@ function Hero() {
                   </Typography>
                   <Select
                     label="Pilih Jenis Identitas Pengunjung"
-                    name="jenis_identitas"
-                    value={dataPengunjung.jenis_identitas}
+                    name="jenis_kelamin"
+                    value={dataPengunjung.jenis_kelamin}
                     onChange={(e) =>
                       handleInputChange({
-                        target: { name: "jenis_identitas", value: e },
+                        target: { name: "jenis_kelamin", value: e },
                       })
                     }
                   >
@@ -339,18 +285,17 @@ function Hero() {
                     <Option value="Kartu Pelajar">Kartu Pelajar</Option>
                     <Option value="Lainnya">Lainnya</Option>
                   </Select>
-                  {dataPengunjung.jenis_identitas === "Lainnya" && (
+                  {dataPengunjung.jenis_kelamin === "Lainnya" && (
                     <div className="mt-2">
                       <Input
                         label="Isi Jenis Identitas Anda (Jika memilih opsi lainnya)"
                         size="md"
                         crossOrigin={undefined}
-                        name="jenis_identitas_lainnya"
-                        value={dataPengunjung.jenis_identitas_lainnya}
-                        onChange={handleInputChange}
+                        name="other_identity"
                       />
                     </div>
                   )}
+
                   <Typography className="mb-2 mt-2" variant="h6">
                     Nomor Identitas Pengunjung
                   </Typography>
@@ -358,10 +303,51 @@ function Hero() {
                     label="Nomor Identitas Pengunjung"
                     size="md"
                     crossOrigin={undefined}
-                    name="nomor_identitas"
-                    value={dataPengunjung.nomor_identitas}
+                    name="instansi"
+                    value={dataPengunjung.instansi}
                     onChange={handleInputChange}
                   />
+
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
+                    Pendidikan Tertinggi
+                  </Typography>
+                  <Select
+                    label="Pilih Pendidikan Tertinggi"
+                    name="pendidikan"
+                    value={dataPengunjung.pendidikan}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "pendidikan", value: e },
+                      })
+                    }
+                  >
+                    <Option value="≤ SLTA/Sederajat">
+                      {"≤ SLTA/Sederajat"}
+                    </Option>
+                    <Option value="D4/S1">D4 / S1</Option>
+                    <Option value="S2">S2</Option>
+                    <Option value="S3">S3</Option>
+                  </Select> */}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
+                    Pekerjaan Utama
+                  </Typography>
+                  <Select
+                    label="Pilih Pekerjaan"
+                    name="pekerjaan"
+                    value={dataPengunjung.pekerjaan}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "pekerjaan", value: e },
+                      })
+                    }
+                  >
+                    <Option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</Option>
+                    <Option value="Peneliti/Dosen">Peneliti/Dosen</Option>
+                    <Option value="ASN/TNI/Polri">ASN/TNI/Polri</Option>
+                    <Option value="Pegawai BUMN/BUMD">Pegawai BUMN/BUMD</Option>
+                    <Option value="Swasta">Swasta</Option>
+                    <Option value="Lainnya">Lainnya</Option>
+                  </Select> */}
                   <Typography className="mb-2 mt-2" variant="h6">
                     Asal Instansi/Perusahaan/Lembaga Pengunjung
                   </Typography>
@@ -378,11 +364,11 @@ function Hero() {
                   </Typography>
                   <Select
                     label="Pilih Petugas Pelayanan"
-                    name="petugas_pelayanan"
-                    value={dataPengunjung.petugas_pelayanan}
+                    name="pendidikan"
+                    value={dataPengunjung.pendidikan}
                     onChange={(e) =>
                       handleInputChange({
-                        target: { name: "petugas_pelayanan", value: e },
+                        target: { name: "pendidikan", value: e },
                       })
                     }
                   >
@@ -398,18 +384,68 @@ function Hero() {
                     <Option value="Lainnya">Lainnya</Option>
                   </Select>
 
-                  {dataPengunjung.petugas_pelayanan === "Lainnya" && (
+                  {dataPengunjung.pendidikan === "Lainnya" && (
                     <div className="mt-2">
                       <Input
                         label="Isi Petugas Pelayanan (Jika memilih opsi lainnya)"
                         size="md"
                         crossOrigin={undefined}
-                        name="petugas_pelayanan_lainnya"
-                        value={dataPengunjung.petugas_pelayanan_lainnya}
-                        onChange={handleInputChange}
+                        name="other_identity"
                       />
                     </div>
                   )}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
+                    Kategori Instansi/Lembaga
+                  </Typography> */}
+                  {/* <Select
+                    label="Pilih Kategori Instansi/Lembaga"
+                    name="kategori_instansi"
+                    value={dataPengunjung.kategori_instansi}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "kategori_instansi", value: e },
+                      })
+                    }
+                  >
+                    <Option value="Lembaga Negara">Lembaga Negara</Option>
+                    <Option value="Kementrian & Lembaga Pemerintah">
+                      Kementrian & Lembaga Pemerintah
+                    </Option>
+                    <Option value="TNI/Polri/BIN/Kejaksaan">
+                      TNI/Polri/BIN/Kejaksaan
+                    </Option>
+                    <Option value="Pemerintah Daerah">Pemerintah Daerah</Option>
+                    <Option value="Lembaga Internasional">
+                      Lembaga Internasional
+                    </Option>
+                    <Option value="Lembaga Penelitian & Pendidikan">
+                      Lembaga Penelitian & Pendidikan
+                    </Option>
+                    <Option value="BUMN/BUMD">BUMN/BUMD</Option>
+                    <Option value="Swasta">Swasta</Option>
+                    <Option value="Lainnya">Lainnya</Option>
+                  </Select> */}
+                  {/* <Typography className="mb-2 mt-2" variant="h6">
+                    Pemanfaatan Utama Hasil Kunjungan Web
+                  </Typography>
+                  <Select
+                    label="Pilih Tujuan"
+                    name="hasil_kunjungan"
+                    value={dataPengunjung.hasil_kunjungan}
+                    onChange={(e) =>
+                      handleInputChange({
+                        target: { name: "hasil_kunjungan", value: e },
+                      })
+                    }
+                  >
+                    <Option value="Tugas Sekolah/Tugas Kuliah">
+                      Tugas Sekolah/Tugas Kuliah
+                    </Option>
+                    <Option value="Pemerintahan">Pemerintahan</Option>
+                    <Option value="Komersial">Komersial</Option>
+                    <Option value="Penelitian">Penelitian</Option>
+                    <Option value="Lainnya">Lainnya</Option>
+                  </Select> */}
                   <div className="mb-12">
                     <Typography className="mb-2 mt-2" variant="h6">
                       Catatan Pengunjung
@@ -418,8 +454,8 @@ function Hero() {
                       label="Catatan Pengunjung"
                       size="md"
                       crossOrigin={undefined}
-                      name="catatan_pengunjung"
-                      value={dataPengunjung.catatan_pengunjung}
+                      name="catatan"
+                      value={dataPengunjung.instansi}
                       onChange={handleInputChange}
                       className="h-20"
                     />
