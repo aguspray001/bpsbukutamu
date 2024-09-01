@@ -205,8 +205,8 @@ export function Navbar() {
       <Collapse open={open}>
         <div className="container mx-auto mt-4 rounded-lg bg-[#001F4F] px-6 py-5">
           <ul className="flex flex-col gap-4 text-gray-900">
-            {NAV_MENU.map(({ name, icon: Icon, href, menu }) => (
-              <div className="relative">
+            {NAV_MENU.map(({ name, icon: Icon, href, menu }, k) => (
+              <div className="relative" key={k}>
                 <Button
                   className={`bg-transparent p-0 m-0 shadow-none ${isScrolling ? "text-white" : "text-white"
                     } hover:shadow-none`}
@@ -215,7 +215,6 @@ export function Navbar() {
                   }
                 >
                   <NavItem
-                    key={name}
                     href={(name === "Daftar Buku" && href) || ""}
                   >
                     <Icon className="h-5 w-5" />
